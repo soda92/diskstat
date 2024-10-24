@@ -7,9 +7,10 @@ from disks import get_all_disks
 def get_disk_name(path):
     return win32api.GetVolumeInformation(f"{path[0]}:\\")[0]
 
+
 def get_usage(path):
     stat = shutil.disk_usage(path)
-    return stat.free/1024**3, stat.used/1024**3, stat.total/1024**3
+    return stat.free / 1024**3, stat.used / 1024**3, stat.total / 1024**3
 
 
 class Disk(QtWidgets.QWidget):
@@ -17,14 +18,36 @@ class Disk(QtWidgets.QWidget):
         super().__init__()
         self._layout = QtWidgets.QVBoxLayout()
         label = get_disk_name(path)
-        self.label = QtWidgets.QLabel(label)
+        self.label = QtWidgets.QLabel(f"{label} ({path[0]}:)")
 
         self.bar = QtWidgets.QProgressBar()
+        self.bar.setTextVisible(False)
+        self.bar.setStyleSheet("""
+QProgressBar {
+    /* Styles for the entire progress bar */
+    border: 2px solid grey;
+    border-radius: 5px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    /* Styles for the filled part of the progress bar */
+    background-color: #05B8CC; 
+    width: 3px; /* Fixed width for chunks */
+    margin: 0px; /* Space between chunks */
+}
+        """)
 
         free, used, total = get_usage(path)
-        self.bar.setValue(int(used/total*100))
+        used_percent = used / total * 100
+        self.bar.setValue(int(used_percent))
 
-        label2 = f"{free:.1f} free of {int(total)} GB"
+        if used_percent>90:
+            self.bar.setStyleSheet(
+                self.bar.styleSheet().replace("#05B8CC", "#930006")
+            )
+
+        label2 = f"{free:.1f} GB free of {int(total)} GB"
         self.info = QtWidgets.QLabel(label2)
 
         self._layout.addWidget(self.label)
@@ -50,6 +73,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.widget.setLayout(self._layout)
         self.setCentralWidget(self.widget)
+        self.resize(585, 444)
+
+    def resizeEvent(self, event):
+        print(event.size())
+        super().resizeEvent(event)
 
 
 if __name__ == "__main__":
