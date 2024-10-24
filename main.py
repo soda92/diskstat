@@ -1,7 +1,8 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtGui
 import win32api
 import shutil
 from disks import get_all_disks
+import sys
 
 
 def get_disk_name(path):
@@ -17,8 +18,13 @@ class Disk(QtWidgets.QWidget):
     def __init__(self, path):
         super().__init__()
         self._layout = QtWidgets.QVBoxLayout()
+
+        label_style = """
+font: "Noto Sans SC" 12pt;
+"""
         label = get_disk_name(path)
         self.label = QtWidgets.QLabel(f"{label} ({path[0]}:)")
+        self.label.setStyleSheet(label_style)
 
         self.bar = QtWidgets.QProgressBar()
         self.bar.setTextVisible(False)
@@ -42,13 +48,12 @@ QProgressBar::chunk {
         used_percent = used / total * 100
         self.bar.setValue(int(used_percent))
 
-        if used_percent>90:
-            self.bar.setStyleSheet(
-                self.bar.styleSheet().replace("#05B8CC", "#930006")
-            )
+        if used_percent > 90:
+            self.bar.setStyleSheet(self.bar.styleSheet().replace("#05B8CC", "#930006"))
 
         label2 = f"{free:.1f} GB free of {int(total)} GB"
         self.info = QtWidgets.QLabel(label2)
+        self.info.setStyleSheet(label_style)
 
         self._layout.addWidget(self.label)
         self._layout.addWidget(self.bar)
@@ -79,9 +84,41 @@ class MainWindow(QtWidgets.QMainWindow):
         print(event.size())
         super().resizeEvent(event)
 
+    def closeEvent(self, _event):
+        self.hide()
+
+
+class SystemTrayApp(QtWidgets.QApplication):
+    def __init__(self, argv):
+        super().__init__(argv)
+
+        self.tray_icon = QtWidgets.QSystemTrayIcon(self)
+        self.tray_icon.setIcon(
+            QtGui.QIcon("program.ico")
+        )  # Replace with your icon path
+        self.tray_icon.setToolTip("Disk Usage")
+
+        # Create the menu
+        menu = QtWidgets.QMenu()
+        action_exit = QtGui.QAction("Exit", self)
+        action_exit.triggered.connect(self.quit)
+        menu.addAction(action_exit)
+
+        self.window = MainWindow()
+
+        # action_show = QtGui.QAction("show", self)
+        # action_show.triggered.connect(self.window.show)
+
+        # menu.addAction(action_show)
+        self.tray_icon.activated.connect(self.window.show)
+
+        self.tray_icon.setContextMenu(menu)
+        self.tray_icon.show()
+
+        self.window.show()
+        self.setQuitOnLastWindowClosed(False)
+
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication()
-    window = MainWindow()
-    window.show()
+    app = SystemTrayApp(sys.argv)
     app.exec()
