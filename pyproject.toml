@@ -1,6 +1,6 @@
 [project]
 name = "diskstat"
-version = "0.1.0"
+version = "0.1.1b"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -22,6 +22,7 @@ Homepage = "https://github.com/soda92/diskstat"
 [tool.uv]
 dev-dependencies = [
     "build>=1.2.2.post1",
+    "pyinstaller>=6.11.0",
     "twine>=5.1.1",
 ]
 
