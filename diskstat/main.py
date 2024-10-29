@@ -71,6 +71,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.widget = QtWidgets.QWidget()
         self._layout = QtWidgets.QVBoxLayout()
         self.disks = []
+        
+        self.setWindowIcon(
+            QtGui.QIcon(":/program.ico")
+        )
         for d in get_all_disks():
             self.disks.append(Disk(d))
 
