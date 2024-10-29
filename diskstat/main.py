@@ -1,9 +1,11 @@
 from PySide6 import QtWidgets, QtGui
 import win32api
 import shutil
-from diskstat.disks import get_all_disks
+from diskstat.disks import get_all_disks, main_console
 import sys
 import diskstat.res as _a  # noqa: F401
+import argparse
+import diskstat.autostart as autostart
 
 
 def get_disk_name(path):
@@ -71,10 +73,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.widget = QtWidgets.QWidget()
         self._layout = QtWidgets.QVBoxLayout()
         self.disks = []
-        
-        self.setWindowIcon(
-            QtGui.QIcon(":/program.ico")
-        )
+
+        self.setWindowIcon(QtGui.QIcon(":/program.ico"))
         for d in get_all_disks():
             self.disks.append(Disk(d))
 
@@ -145,8 +145,34 @@ class SystemTrayApp(QtWidgets.QApplication):
 
 
 def main():
-    app = SystemTrayApp(sys.argv)
-    app.exec()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-e", "--enable", action="store_true", default=False, help="enable auto start"
+    )
+    parser.add_argument(
+        "-d", "--disable", action="store_true", default=False, help="disable auto start"
+    )
+    parser.add_argument(
+        "-c", "--console", action="store_true", default=False, help="console mode"
+    )
+    parser.add_argument(
+        "-o", "--open", action="store_true", default=False, help="open startup folder"
+    )
+
+    args = parser.parse_args()
+    if args.enable:
+        autostart.enable()
+    if args.disable:
+        autostart.disable()
+
+    if args.open:
+        autostart.open_start_folder()
+
+    if args.console:
+        main_console()
+    else:
+        app = SystemTrayApp(sys.argv)
+        app.exec()
 
 
 if __name__ == "__main__":

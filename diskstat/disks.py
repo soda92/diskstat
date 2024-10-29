@@ -18,7 +18,7 @@ def get_all_disks():
     return disks
 
 
-if __name__ == "__main__":
+def main_console():
     disks = get_all_disks()
     for d in disks:
         usage = shutil.disk_usage(d)
@@ -32,3 +32,7 @@ if __name__ == "__main__":
         free_gigabytes = usage.free / 1024 / 1024 / 1024
         percent = usage.free / usage.total * 100
         print(colorama.Fore.GREEN + f"free: {free_gigabytes:.1f} G ({percent:.1f}%)")
+
+
+if __name__ == "__main__":
+    main_console()
