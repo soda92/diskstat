@@ -3,7 +3,7 @@
 Visualize your disk free space without Windows Explorer.
 
 ## Screenshots
-<img src="image.png" alt="demo" style="width:400px;"/>
+<img src="https://raw.githubusercontent.com/soda92/diskstat/refs/heads/main/image.png" alt="demo" style="width:400px;"/>
 
 ## Features
 

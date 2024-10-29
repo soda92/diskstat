@@ -20,7 +20,10 @@ classifiers = [
 Homepage = "https://github.com/soda92/diskstat"
 
 [tool.uv]
-dev-dependencies = ["build>=1.2.2.post1"]
+dev-dependencies = [
+    "build>=1.2.2.post1",
+    "twine>=5.1.1",
+]
 
 [build-system]
 requires = ["setuptools"]
