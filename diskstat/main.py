@@ -1,8 +1,9 @@
 from PySide6 import QtWidgets, QtGui
 import win32api
 import shutil
-from disks import get_all_disks
+from diskstat.disks import get_all_disks
 import sys
+import diskstat.res as _a  # noqa: F401
 
 
 def get_disk_name(path):
@@ -101,7 +102,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def resizeEvent(self, event):
-        print(event.size())
+        # print(event.size())
         super().resizeEvent(event)
 
     def closeEvent(self, _event):
@@ -114,7 +115,7 @@ class SystemTrayApp(QtWidgets.QApplication):
 
         self.tray_icon = QtWidgets.QSystemTrayIcon(self)
         self.tray_icon.setIcon(
-            QtGui.QIcon("program.ico")
+            QtGui.QIcon(":/program.ico")
         )  # Replace with your icon path
         self.tray_icon.setToolTip("Disk Usage")
 
@@ -139,6 +140,10 @@ class SystemTrayApp(QtWidgets.QApplication):
         self.setQuitOnLastWindowClosed(False)
 
 
-if __name__ == "__main__":
+def main():
     app = SystemTrayApp(sys.argv)
     app.exec()
+
+
+if __name__ == "__main__":
+    main()
