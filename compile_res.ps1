@@ -1,1 +1,1 @@
-pyside6-rcc res.qrc -o diskstat/res.py
+uv run pyside6-rcc res.qrc -o diskstat/res.py
