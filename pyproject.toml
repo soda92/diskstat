@@ -1,10 +1,10 @@
 [project]
-name = "diststat"
+name = "diskstat"
 version = "0.1.0"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["flask>=3.0.3", "pyside6>=6.8.0.1", "pywin32>=308"]
+dependencies = ["pyside6>=6.8.0.1", "pywin32>=308"]
 
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -18,3 +18,19 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/soda92/diskstat"
+
+[tool.uv]
+dev-dependencies = ["build>=1.2.2.post1"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+where = ["."]  # ["."] by default
+include = ["*"]  # ["*"] by default
+exclude = ["test*"]  # empty by default
+
+[project.scripts]
+cli-name = "main:main"
