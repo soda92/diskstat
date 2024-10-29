@@ -80,6 +80,26 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(self.widget)
         self.resize(585, 444)
 
+        shortcut = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self)
+        shortcut.activated.connect(self.refresh)
+
+    def refresh(self):
+        # self.label.setText("Shortcut activated!")
+
+        for d in self.disks:
+            self._layout.removeWidget(d)
+            d.setParent(None)
+            del d
+
+        self.disks = []
+        for d in get_all_disks():
+            self.disks.append(Disk(d))
+
+        for d in self.disks:
+            self._layout.addWidget(d)
+        self.resize(585, 444)
+        self.show()
+
     def resizeEvent(self, event):
         print(event.size())
         super().resizeEvent(event)
@@ -110,7 +130,7 @@ class SystemTrayApp(QtWidgets.QApplication):
         # action_show.triggered.connect(self.window.show)
 
         # menu.addAction(action_show)
-        self.tray_icon.activated.connect(self.window.show)
+        self.tray_icon.activated.connect(self.window.refresh)
 
         self.tray_icon.setContextMenu(menu)
         self.tray_icon.show()
