@@ -131,7 +131,7 @@ wheels = [
 
 [[package]]
 name = "diskstat"
-version = "0.1.1b0"
+version = "0.1.3"
 source = { editable = "." }
 dependencies = [
     { name = "pyside6" },
