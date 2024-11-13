@@ -1,6 +1,6 @@
 [project]
 name = "diskstat"
-version = "0.1.3"
+version = "0.1.5"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
