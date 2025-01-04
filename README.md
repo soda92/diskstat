@@ -3,8 +3,13 @@
 <a href="https://pypi.org/project/diskstat/">
     <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/diskstat">
 </a>
-<hr/>
+
 Visualize your disk free space without Windows Explorer.
+
+## install
+```bash
+pip install -U diskstat
+```
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/soda92/diskstat/refs/heads/main/image.png" alt="demo" style="width:400px;"/>
