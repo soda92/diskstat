@@ -1,6 +1,6 @@
 [project]
 name = "diskstat"
-version = "2025.1.4"
+version = "2025.1.6"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -37,4 +37,7 @@ include = ["*"]  # ["*"] by default
 exclude = ["test*"]  # empty by default
 
 [project.scripts]
-cli-name = "main:main"
+diskstat-cli = "diskstat.main:main"
+
+[project.gui-scripts]
+diskstat = "diskstat.main:main"

@@ -24,11 +24,10 @@ options:
   -o, --open     open startup folder
 ```
 
-for example, if you want to start this with Windows:
+for example, to start the program as well as enable auto start:
 ```bash
-py -m diskstat -ceo
+diskstat.exe -e
 ```
-Then click the shortcut in the popped folder to run it.
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/soda92/diskstat/refs/heads/main/image.png" alt="demo" style="width:400px;"/>
