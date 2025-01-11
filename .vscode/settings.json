@@ -7,5 +7,6 @@
             "comments": "off",
             "strings": "off"
         }
-    }
+    },
+    "python.languageServer": "Jedi"
 }

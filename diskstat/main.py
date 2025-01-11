@@ -5,7 +5,6 @@ from diskstat.disks import get_all_disks, main_console
 import sys
 import diskstat.res as _a  # noqa: F401
 import argparse
-import diskstat.autostart as autostart
 
 
 def get_disk_name(path):
@@ -41,7 +40,7 @@ QProgressBar {
 
 QProgressBar::chunk {
     /* Styles for the filled part of the progress bar */
-    background-color: #05B8CC; 
+    background-color: #05B8CC;
     width: 3px; /* Fixed width for chunks */
     margin: 0px; /* Space between chunks */
 }
@@ -109,64 +108,23 @@ class MainWindow(QtWidgets.QMainWindow):
         # print(event.size())
         super().resizeEvent(event)
 
-    def closeEvent(self, _event):
-        self.hide()
-
 
 class SystemTrayApp(QtWidgets.QApplication):
-    def __init__(self, argv):
+    def __init__(self, argv, show=True):
         super().__init__(argv)
 
-        self.tray_icon = QtWidgets.QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            QtGui.QIcon(":/program.ico")
-        )  # Replace with your icon path
-        self.tray_icon.setToolTip("Disk Usage")
-
-        # Create the menu
-        menu = QtWidgets.QMenu()
-        action_exit = QtGui.QAction("Exit", self)
-        action_exit.triggered.connect(self.quit)
-        menu.addAction(action_exit)
-
         self.window = MainWindow()
-
-        # action_show = QtGui.QAction("show", self)
-        # action_show.triggered.connect(self.window.show)
-
-        # menu.addAction(action_show)
-        self.tray_icon.activated.connect(self.window.refresh)
-
-        self.tray_icon.setContextMenu(menu)
-        self.tray_icon.show()
-
         self.window.show()
-        self.setQuitOnLastWindowClosed(False)
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-e", "--enable", action="store_true", default=False, help="enable auto start"
-    )
-    parser.add_argument(
-        "-d", "--disable", action="store_true", default=False, help="disable auto start"
-    )
+
     parser.add_argument(
         "-c", "--console", action="store_true", default=False, help="console mode"
     )
-    parser.add_argument(
-        "-o", "--open", action="store_true", default=False, help="open startup folder"
-    )
 
     args = parser.parse_args()
-    if args.enable:
-        autostart.enable()
-    if args.disable:
-        autostart.disable()
-
-    if args.open:
-        autostart.open_start_folder()
 
     if args.console:
         main_console()

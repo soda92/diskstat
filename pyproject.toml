@@ -1,6 +1,6 @@
 [project]
 name = "diskstat"
-version = "2025.1.4"
+version = "2025.1.11.1"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -13,28 +13,26 @@ classifiers = [
     "Topic :: System :: Filesystems",
     "Topic :: Utilities",
     "Intended Audience :: End Users/Desktop",
-    "Development Status :: 3 - Alpha",
 ]
 
 [project.urls]
-Homepage = "https://github.com/soda92/diskstat"
+Repository = "https://github.com/soda92/diskstat"
 
 [tool.uv]
-dev-dependencies = [
-    "build>=1.2.2.post1",
-    "pyinstaller>=6.11.0",
-    "twine>=5.1.1",
-]
+dev-dependencies = ["build>=1.2.2.post1", "pyinstaller>=6.11.0", "twine>=5.1.1"]
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools.packages.find]
-# All the following settings are optional:
-where = ["."]  # ["."] by default
-include = ["*"]  # ["*"] by default
-exclude = ["test*"]  # empty by default
+[tool.hatch.build.targets.sdist]
+packages = ["diskstat"]
+include = ["*.ahk"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["diskstat"]
+include = ["*.ahk"]
 
 [project.scripts]
-cli-name = "main:main"
+diskstat = "diskstat.launcher:main"
+diskstat-launcher = "diskstat.main:main"
