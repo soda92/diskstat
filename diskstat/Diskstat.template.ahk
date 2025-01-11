@@ -5,5 +5,5 @@ TraySetIcon "{resources}\program.ico"
 
 #!O::
 {
-    Run "diskstat-launcher.exe", , "Hide"
+    Run "cmd /C diskstat-launcher.exe", , "Hide"
 }
