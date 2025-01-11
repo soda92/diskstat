@@ -13,22 +13,21 @@ pip install -U diskstat
 
 ## Options
 ```bash
-py -m diskstat --help
-usage: __main__.py [-h] [-e] [-d] [-c] [-o]
+> diskstat.exe --help
+usage: diskstat [-h] [-e] [-d] [-o] [-x]
 
 options:
   -h, --help     show this help message and exit
   -e, --enable   enable auto start
   -d, --disable  disable auto start
-  -c, --console  console mode
   -o, --open     open startup folder
+  -x, --exec     execute now
 ```
 
 for example, if you want to start this with Windows:
 ```bash
-py -m diskstat -ceo
+diskstat.exe -e
 ```
-Then click the shortcut in the popped folder to run it.
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/soda92/diskstat/refs/heads/main/image.png" alt="demo" style="width:400px;"/>
@@ -37,6 +36,4 @@ Then click the shortcut in the popped folder to run it.
 
 Red bar when free space is lower than 10% (Same as Windows Explorer).
 
-System tray for easy reopen.
-
-Use `Ctrl + R` to refresh (reopen will also refresh automatically).
+Use 'Win+Alt+O' for shortcut key.
