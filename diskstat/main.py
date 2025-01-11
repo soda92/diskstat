@@ -41,7 +41,7 @@ QProgressBar {
 
 QProgressBar::chunk {
     /* Styles for the filled part of the progress bar */
-    background-color: #05B8CC; 
+    background-color: #05B8CC;
     width: 3px; /* Fixed width for chunks */
     margin: 0px; /* Space between chunks */
 }
@@ -114,7 +114,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 class SystemTrayApp(QtWidgets.QApplication):
-    def __init__(self, argv):
+    def __init__(self, argv, show=True):
         super().__init__(argv)
 
         self.tray_icon = QtWidgets.QSystemTrayIcon(self)
@@ -140,7 +140,8 @@ class SystemTrayApp(QtWidgets.QApplication):
         self.tray_icon.setContextMenu(menu)
         self.tray_icon.show()
 
-        self.window.show()
+        if show:
+            self.window.show()
         self.setQuitOnLastWindowClosed(False)
 
 
@@ -159,6 +160,10 @@ def main():
         "-o", "--open", action="store_true", default=False, help="open startup folder"
     )
 
+    parser.add_argument(
+        "--hide", action="store_true", default=False, help="hide window"
+    )
+
     args = parser.parse_args()
     if args.enable:
         autostart.enable()
@@ -171,7 +176,8 @@ def main():
     if args.console:
         main_console()
     else:
-        app = SystemTrayApp(sys.argv)
+        show = not args.hide
+        app = SystemTrayApp(sys.argv, show=show)
         app.exec()
 
 

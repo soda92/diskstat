@@ -15,7 +15,7 @@ def enable():
     shell = Dispatch("WScript.Shell")
     shortcut = shell.CreateShortCut(str(lnk_file))
     shortcut.Targetpath = str(python_path.joinpath("pythonw.exe"))
-    shortcut.Arguments = "-m diskstat"
+    shortcut.Arguments = "-m diskstat --hide"
     shortcut.WorkingDirectory = str(python_path)
     shortcut.save()
 
