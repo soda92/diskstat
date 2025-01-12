@@ -1,4 +1,4 @@
-from PySide6 import QtWidgets, QtGui
+from PySide6 import QtWidgets, QtGui, QtCore
 import win32api
 import shutil
 from diskstat.disks import get_all_disks
@@ -12,7 +12,6 @@ def get_disk_name(path):
 def get_usage(path):
     stat = shutil.disk_usage(path)
     return stat.free / 1024**3, stat.used / 1024**3, stat.total / 1024**3
-
 
 
 class Disk(QtWidgets.QWidget):
@@ -110,8 +109,36 @@ class MainWindow(QtWidgets.QMainWindow):
         super().resizeEvent(event)
 
 
+class QueueHandler(QtCore.QThread):
+    signal_show: QtCore.Signal = QtCore.Signal()
+    signal_hide: QtCore.Signal = QtCore.Signal()
+    signal_quit: QtCore.Signal = QtCore.Signal()
+
+    def __init__(self, queue_app):
+        super().__init__()
+        self.queue_app = queue_app
+
+    def run(self):
+        while True:
+            signal = self.queue_app.get()
+            if signal == "show":
+                self.signal_show.emit()
+            elif signal == "hide":
+                self.signal_hide.emit()
+            elif signal == "quit":
+                self.signal_quit.emit()
+                break
+
+
 class App(QtWidgets.QApplication):
-    def __init__(self, argv, show=True):
+    def __init__(self, argv, queue_app):
         super().__init__(argv)
 
         self.window = MainWindow()
+        self.setQuitOnLastWindowClosed(False)
+
+        self.queue_handler = QueueHandler(queue_app=queue_app)
+        self.queue_handler.signal_show.connect(lambda: self.window.show())
+        self.queue_handler.signal_hide.connect(lambda: self.window.hide())
+        self.queue_handler.signal_quit.connect(lambda: self.quit())
+        self.queue_handler.start()

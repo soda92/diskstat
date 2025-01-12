@@ -1,10 +1,17 @@
 [project]
 name = "diskstat"
-version = "2025.1.12.0"
+version = "2025.1.12.1"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["pyside6>=6.8.0.1", "pywin32>=308"]
+dependencies = [
+    "fastapi>=0.115.6",
+    "pydantic>=2.10.5",
+    "pyside6>=6.8.0.1",
+    "pywin32>=308",
+    "requests>=2.32.3",
+    "uvicorn>=0.34.0",
+]
 
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -38,4 +45,6 @@ include = ["*.ahk"]
 
 [project.scripts]
 diskstat = "diskstat.launcher:main"
-diskstat-launcher = "diskstat.main:main"
+diskstat-launcher-hidden = "diskstat.server_main:start_hidden"
+diskstat-launcher = "diskstat.server_main:try_run"
+diskstat-stop = "diskstat.stop:stop"
