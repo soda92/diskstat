@@ -86,6 +86,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         shortcut = QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self)
         shortcut.activated.connect(self.refresh)
+        shortcut2 = QtGui.QShortcut(QtGui.QKeySequence("Esc"), self)
+        shortcut2.activated.connect(self.hide)
 
     def refresh(self):
         # self.label.setText("Shortcut activated!")
