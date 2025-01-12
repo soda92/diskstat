@@ -87,7 +87,7 @@ def run_app_and_server(
 def try_run(hidden=False):
     r = ""  # noqa: F841
     try:
-        r = requests.get("http://127.0.0.1:12346/show", timeout=0.5)  # noqa: F841
+        r = requests.get("http://127.0.0.1:12346/show", timeout=7)  # noqa: F841
     except Exception as e:
         print(e)
         queue_signals = multiprocessing.Queue()

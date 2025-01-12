@@ -15,6 +15,7 @@ def main():
     )
 
     args = parser.parse_args()
+    autostart.enable()
 
     if args.disable:
         autostart.disable()
@@ -22,7 +23,8 @@ def main():
     if args.open:
         autostart.open_start_folder()
 
-    autostart.exec()
+    if not args.disable:
+        autostart.exec()
 
 
 if __name__ == "__main__":
