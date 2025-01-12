@@ -138,7 +138,11 @@ class App(QtWidgets.QApplication):
         self.setQuitOnLastWindowClosed(False)
 
         self.queue_handler = QueueHandler(queue_app=queue_app)
-        self.queue_handler.signal_show.connect(lambda: self.window.show())
+
+        def show():
+            self.window.refresh()
+            self.window.show()
+        self.queue_handler.signal_show.connect(show)
         self.queue_handler.signal_hide.connect(lambda: self.window.hide())
         self.queue_handler.signal_quit.connect(lambda: self.quit())
         self.queue_handler.start()
