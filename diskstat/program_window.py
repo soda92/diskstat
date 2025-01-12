@@ -110,9 +110,8 @@ class MainWindow(QtWidgets.QMainWindow):
         super().resizeEvent(event)
 
 
-class SystemTrayApp(QtWidgets.QApplication):
+class App(QtWidgets.QApplication):
     def __init__(self, argv, show=True):
         super().__init__(argv)
 
         self.window = MainWindow()
-        self.window.show()

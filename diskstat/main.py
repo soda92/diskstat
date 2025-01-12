@@ -1,6 +1,6 @@
 from diskstat.disks import main_console
 import argparse
-from diskstat.program_window import SystemTrayApp
+from diskstat.program_window import App
 import sys
 
 def main():
@@ -15,7 +15,8 @@ def main():
     if args.console:
         main_console()
     else:
-        app = SystemTrayApp(sys.argv)
+        app = App(sys.argv)
+        app.window.show()
         app.exec()
 
 
