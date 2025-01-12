@@ -14,20 +14,36 @@ pip install -U diskstat
 ## Options
 ```bash
 > diskstat.exe --help
-usage: diskstat [-h] [-e] [-d] [-o] [-x]
+usage: diskstat [-h] [-d] [-o]
 
 options:
   -h, --help     show this help message and exit
-  -e, --enable   enable auto start
   -d, --disable  disable auto start
   -o, --open     open startup folder
-  -x, --exec     execute now
 ```
 
 for example, if you want to start this with Windows:
-```bash
-diskstat.exe -e
+```pwsh
+diskstat.exe
 ```
+
+to disable:
+```pwsh
+diskstat.exe -d
+```
+
+to launch via command line:
+```pwsh
+diskstat-launcher.exe
+```
+
+## API for testing
+
+show: <http://127.0.0.1:12346/show>
+
+hide: <http://127.0.0.1:12346/hide>
+
+stop: <http://127.0.0.1:12346/stop>, only useful when debugging
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/soda92/diskstat/refs/heads/main/image.png" alt="demo" style="width:400px;"/>
