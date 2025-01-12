@@ -13,6 +13,16 @@
             "env": {
                 "PYTHONPATH": "."
             }
+        },
+        {
+            "name": "server_main",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/diskstat/server_main.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "."
+            }
         }
     ]
 }
