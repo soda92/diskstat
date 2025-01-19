@@ -17,7 +17,7 @@ ExitPreviousSession(ExitReason, ExitCode) {
 }
 
 ExitPreviousSession(0, 0)
-Run "diskstat-launcher-hidden.exe", , "Hide", &id2
+Run "diskstat-launcher.exe --hidden", , "Hide", &id2
 
 Persistent
 OnExit ExitPreviousSession

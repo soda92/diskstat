@@ -44,7 +44,6 @@ packages = ["diskstat"]
 include = ["*.ahk"]
 
 [project.scripts]
-diskstat = "diskstat.launcher:main"
-diskstat-launcher-hidden = "diskstat.server_main:start_hidden"
-diskstat-launcher = "diskstat.server_main:try_run"
+diskstat = "diskstat.main:main"
+diskstat-launcher = "diskstat.launcher:try_run"
 diskstat-stop = "diskstat.stop:stop"
