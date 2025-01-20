@@ -9,13 +9,14 @@ python_path = Path(sys.executable).resolve().parent
 start_folder = home_folder.joinpath(
     r"AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 )
-lnk_file = start_folder.joinpath("diskstat.lnk")
+lnk_file = start_folder.joinpath("diskstat - Shortcut.lnk")
 
 
 def enable():
     shell = Dispatch("WScript.Shell")
     shortcut = shell.CreateShortCut(str(lnk_file))
     shortcut.Targetpath = str(CURRENT.parent.joinpath("diskstat_script").joinpath("Diskstat.ahk"))
+    shortcut.Arguments = ""
     shortcut.save()
 
 
