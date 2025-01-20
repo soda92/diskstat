@@ -37,11 +37,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.sdist]
 packages = ["diskstat"]
-include = ["*.ahk"]
+include = ["*.ahk", "*.exe"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["diskstat"]
-include = ["*.ahk"]
+include = ["*.ahk", "*.exe"]
 
 [project.scripts]
 diskstat = "diskstat.entry:main"

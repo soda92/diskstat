@@ -6,7 +6,7 @@ TraySetIcon "{resources}\program.ico"
 ; shortcut behavior
 #!O::
 {
-    Run "diskstat-show.exe", , "Hide"
+    Run "{resources}\diskstat-show-c.exe", , "Hide"
 }
 
 ; launch behavior
@@ -17,7 +17,7 @@ Persistent
 
 ExitPreviousSession(ExitReason, ExitCode) {
     id := 0
-    Run "diskstat-stop.exe", , "Hide", &id
+    Run "{resources}\diskstat-stop-c.exe", , "Hide", &id
     ProcessWaitClose(id)
 }
 
