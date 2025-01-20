@@ -44,6 +44,8 @@ packages = ["diskstat"]
 include = ["*.ahk"]
 
 [project.scripts]
-diskstat = "diskstat.main:main"
-diskstat-launcher = "diskstat.launcher:try_run"
-diskstat-stop = "diskstat.stop:stop"
+diskstat = "diskstat.entry:main"
+diskstat-server = "diskstat.server:main"
+
+diskstat-show = "diskstat.http_show:main"
+diskstat-stop = "diskstat.http_stop:main"

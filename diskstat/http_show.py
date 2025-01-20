@@ -1,9 +1,9 @@
 import requests
 
 
-def stop():
+def main():
     try:
-        r = requests.get("http://localhost:12346/quit", timeout=0.5)
+        r = requests.get("http://localhost:12346/show", timeout=0.5)
     except Exception as e:
         print("timeout", e)
     else:
@@ -11,4 +11,4 @@ def stop():
 
 
 if __name__ == "__main__":
-    stop()
+    main()

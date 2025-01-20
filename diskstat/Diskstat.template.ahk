@@ -5,7 +5,7 @@ TraySetIcon "{resources}\program.ico"
 
 #!O::
 {
-    Run "diskstat-launcher.exe", , "Hide"
+    Run "diskstat-show.exe", , "Hide"
 }
 
 id := 0
@@ -17,7 +17,7 @@ ExitPreviousSession(ExitReason, ExitCode) {
 }
 
 ExitPreviousSession(0, 0)
-Run "diskstat-launcher.exe --hidden", , "Hide", &id2
+Run "diskstat-server.exe --hidden", , "Hide", &id2
 
 Persistent
 OnExit ExitPreviousSession
