@@ -1,3 +1,4 @@
+"Program entry"
 from diskstat.gen import gen
 import diskstat.autostart as autostart
 import argparse

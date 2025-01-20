@@ -3,21 +3,22 @@
 
 TraySetIcon "{resources}\program.ico"
 
+; shortcut behavior
 #!O::
 {
-    Run "diskstat-launcher.exe", , "Hide"
+    Run "{resources}\diskstat-show-c.exe", , "Hide"
 }
 
-id := 0
-id2 := 0
+; launch behavior
+Run "diskstat-server.exe --hidden", , "Hide"
+
+; exit behavior
+Persistent
 
 ExitPreviousSession(ExitReason, ExitCode) {
-    Run "diskstat-stop.exe", , "Hide", &id
-    ProcessWaitClose(id2)
+    id := 0
+    Run "{resources}\diskstat-stop-c.exe", , "Hide", &id
+    ProcessWaitClose(id)
 }
 
-ExitPreviousSession(0, 0)
-Run "diskstat-launcher-hidden.exe", , "Hide", &id2
-
-Persistent
 OnExit ExitPreviousSession

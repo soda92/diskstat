@@ -1,7 +1,7 @@
 from diskstat.program_window import App
-import requests
 import multiprocessing
 import sys
+import argparse
 
 
 def run_app_impl(hidden, queue_app: multiprocessing.Queue):
@@ -84,22 +84,17 @@ def run_app_and_server(
     p2.join()
 
 
-def try_run(hidden=False):
-    r = ""  # noqa: F841
-    try:
-        r = requests.get("http://127.0.0.1:12346/show", timeout=7)  # noqa: F841
-    except Exception as e:
-        print(e)
-        queue_signals = multiprocessing.Queue()
-        queue_server = multiprocessing.Queue()
-        run_app_and_server(
-            hidden=hidden, queue_signals=queue_signals, queue_server=queue_server
-        )
-
-
-def start_hidden():
-    try_run(hidden=True)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--hidden", action="store_true", default=False)
+    args = parser.parse_args()
+    hidden = args.hidden
+    queue_signals = multiprocessing.Queue()
+    queue_server = multiprocessing.Queue()
+    run_app_and_server(
+        hidden=hidden, queue_signals=queue_signals, queue_server=queue_server
+    )
 
 
 if __name__ == "__main__":
-    try_run()
+    main()

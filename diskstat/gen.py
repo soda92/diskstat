@@ -1,3 +1,4 @@
+"replace ahk variables"
 from pathlib import Path
 
 CURRENT = Path(__file__).resolve().parent
