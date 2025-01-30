@@ -155,7 +155,7 @@ wheels = [
 
 [[package]]
 name = "diskstat"
-version = "2025.1.20.0"
+version = "2025.1.30.0"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi" },

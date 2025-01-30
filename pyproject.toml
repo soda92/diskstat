@@ -1,6 +1,6 @@
 [project]
 name = "diskstat"
-version = "2025.1.27.0"
+version = "2025.1.30.0"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -46,6 +46,3 @@ include = ["*.ahk", "*.exe"]
 [project.scripts]
 diskstat = "diskstat.entry:main"
 diskstat-server = "diskstat.server:main"
-
-diskstat-show = "diskstat.http_show:main"
-diskstat-stop = "diskstat.http_stop:main"
