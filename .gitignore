@@ -2,6 +2,8 @@
 # diskstat/res.py
 /diskstat_script
 
+/diskstat/*.exe
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

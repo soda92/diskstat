@@ -6,14 +6,14 @@ TraySetIcon "{resources}\program.ico"
 ; shortcut behavior
 #!O::
 {
-    Run "{resources}\diskstat-show-c.exe", , "Hide"
+    Run "{resources}\diskstat-api.exe -show", , "Hide"
 }
 
 ; for thinkpad keyboard
 #HotIf GetKeyState("Alt")
 PrintScreen & O::
 {
-    Run "{resources}\diskstat-show-c.exe", , "Hide"
+    Run "{resources}\diskstat-api.exe -show", , "Hide"
 }
 
 ; launch behavior
@@ -24,7 +24,7 @@ Persistent
 
 ExitPreviousSession(ExitReason, ExitCode) {
     id := 0
-    Run "{resources}\diskstat-stop-c.exe", , "Hide", &id
+    Run "{resources}\diskstat-api.exe -stop", , "Hide", &id
     ProcessWaitClose(id)
 }
 
