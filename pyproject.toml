@@ -26,13 +26,10 @@ classifiers = [
 Repository = "https://github.com/soda92/diskstat"
 
 [tool.uv]
-dev-dependencies = [
-    "build>=1.2.2.post1",
-    "twine>=6.0.1",
-]
+dev-dependencies = ["build>=1.2.2.post1", "twine>=6.0.1"]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-build-scripts"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.sdist]
@@ -42,6 +39,18 @@ include = ["*.ahk", "*.exe"]
 [tool.hatch.build.targets.wheel]
 packages = ["diskstat"]
 include = ["*.ahk", "*.exe"]
+
+[[tool.hatch.build.hooks.build-scripts.scripts]]
+work_dir = "diskstat"
+commands = [
+    "go build diskstat-api.go",
+]
+artifacts = [
+    "diskstat/diskstat-api.exe",
+]
+
+[tool.hatch.build.targets.wheel.force-include]
+"diskstat/diskstat-api.exe" = "diskstat/diskstat-api.exe"
 
 [project.scripts]
 diskstat = "diskstat.entry:main"
