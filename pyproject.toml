@@ -35,8 +35,8 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.sdist]
 ignore-vcs = true
 packages = ["diskstat"]
-include = ["*.ahk", "*.exe"]
-exclude = ["__pycache__", "*.pyc"]
+include = ["*.ahk"]
+exclude = ["__pycache__", "*.pyc", "*.exe"]
 
 [tool.hatch.build.targets.wheel]
 ignore-vcs = true
@@ -44,10 +44,7 @@ packages = ["diskstat"]
 include = ["*.ahk", "*.exe"]
 exclude = ["__pycache__", "*.pyc"]
 
-[[tool.hatch.build.hooks.custom.scripts]]
-work_dir = "diskstat"
-out_dir = "diskstat"
-commands = ["go build diskstat-api.go"]
+[tool.hatch.build.hooks.custom]
 
 [project.scripts]
 diskstat = "diskstat.entry:main"
