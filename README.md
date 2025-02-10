@@ -53,3 +53,8 @@ stop: <http://127.0.0.1:12346/stop>, only useful when debugging
 Red bar when free space is lower than 10% (Same as Windows Explorer).
 
 Use 'Win+Alt+O' for shortcut key.
+
+
+## Note on running from source
+
+need to install go; then run `build.ps1`.
