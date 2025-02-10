@@ -3,8 +3,8 @@ import os
 import shutil
 from functools import cached_property
 from pathlib import Path
-from subprocess import run
 from typing import Any
+import subprocess
 
 import pathspec
 
@@ -78,7 +78,8 @@ class CustomBuilder(BuildHookInterface):
         version: str,  # noqa: ARG002
         build_data: dict[str, Any],
     ) -> None:
-        created: set[Path] = set()
+        if self.target_name == "wheel":
+            return
 
         all_scripts = load_scripts(self.config)
 
@@ -93,26 +94,12 @@ class CustomBuilder(BuildHookInterface):
                     out_file.unlink(missing_ok=True)
 
         for script in all_scripts:
-            # breakpoint()
-            # log.debug(f"Script config: {asdict(script)}")
             work_dir = Path(self.root, script.work_dir)
             out_dir = Path(self.root, script.out_dir)
             out_dir.mkdir(parents=True, exist_ok=True)
 
             for cmd in script.commands:
                 log.info(f"Running command: {cmd}")
-                run(cmd, cwd=str(work_dir), check=True, shell=True)  # noqa: S602
-
-            log.info(f"Copying artifacts to {out_dir}")
-            for work_file in script.work_files(self.root, relative=True):
-                src_file = work_dir / work_file
-                out_file = out_dir / work_file
-                log.debug(f"Copying {src_file} to {out_file}")
-                if src_file not in created:
-                    out_file.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copyfile(src_file, out_file)
-                    created.add(out_file)
-                else:
-                    log.debug(f"Skipping {src_file} - already exists")
-
-            build_data["artifacts"].append(str(out_dir.relative_to(self.root)))
+                if cmd is str:
+                    cmd = cmd.split()
+                subprocess.run(cmd, cwd=str(work_dir), check=True)
