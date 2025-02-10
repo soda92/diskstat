@@ -1,9 +1,9 @@
 [project]
 name = "diskstat"
-version = "2025.1.30.0"
+version = "2025.2.11.0"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.115.6",
     "pydantic>=2.10.5",
