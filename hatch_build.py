@@ -26,3 +26,4 @@ class CustomBuilder(BuildHookInterface):
 
         with CD("diskstat"):
             subprocess.run("go build diskstat-api.go".split(), check=True)
+            subprocess.run("pyside6-rcc res.qrc -o res.py".split(), check=True)
