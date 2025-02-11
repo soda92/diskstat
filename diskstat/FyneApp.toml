@@ -1,0 +1,7 @@
+Website = "https://example.com"
+
+[Details]
+  Icon = "Icon.png"
+  Name = "diskstat"
+  ID = "com.example.app"
+  Version = "1.0.0"

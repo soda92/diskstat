@@ -1,4 +1,4 @@
-import win32api
+import win32api  # noqa: F401
 import win32gui
 import win32con
 

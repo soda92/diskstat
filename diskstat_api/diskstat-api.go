@@ -1,14 +1,19 @@
 package main
 
-import "net/http"
-import "flag"
+import (
+	"flag"
+	"fmt"
+	"net/http"
+)
 
 func main() {
 	show := flag.Bool("show", false, "a bool")
 	stop := flag.Bool("stop", false, "a bool")
+	port := flag.Int("port", 12346, "program port")
 	flag.Parse()
+
 	if *show {
-		resp, err := http.Get("http://localhost:12346/show")
+		resp, err := http.Get(fmt.Sprintf("http://localhost:%d/show", *port))
 		if err != nil {
 			// handle error
 		}
@@ -16,7 +21,7 @@ func main() {
 	}
 
 	if *stop {
-		resp, err := http.Get("http://localhost:12346/quit")
+		resp, err := http.Get(fmt.Sprintf("http://localhost:%d/quit", *port))
 		if err != nil {
 			// handle error
 		}
