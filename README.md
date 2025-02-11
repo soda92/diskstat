@@ -11,6 +11,8 @@ Visualize your disk free space without Windows Explorer.
 pip install -U diskstat
 ```
 
+Then install [autohotkey](https://www.autohotkey.com/).
+
 ## Options
 ```bash
 > diskstat.exe --help
@@ -34,23 +36,19 @@ diskstat.exe -d
 
 to launch via command line:
 ```pwsh
-diskstat-launcher.exe
+diskstat-console.exe
 ```
 
 ## API for testing
 
-show: <http://127.0.0.1:12346/show>
+show: <http://127.0.0.1:12347/show>
 
-hide: <http://127.0.0.1:12346/hide>
-
-stop: <http://127.0.0.1:12346/stop>, only useful when debugging
+stop: <http://127.0.0.1:12347/stop>, only useful when debugging
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/soda92/diskstat/refs/heads/main/image.png" alt="demo" style="width:400px;"/>
 
 ## Features
-
-Red bar when free space is lower than 10% (Same as Windows Explorer).
 
 Use 'Win+Alt+O' for shortcut key.
 
