@@ -41,12 +41,7 @@ func get_usage(d string) string {
 	return str
 }
 
-func main() {
-	a := app.New()
-	w := a.NewWindow("Disk Usage")
-	w.CenterOnScreen()
-
-	w.Resize(fyne.NewSize(585, 444))
+func cons_window(w fyne.Window) {
 	x := container.New(layout.NewVBoxLayout())
 
 	disks := get_disks()
@@ -56,6 +51,15 @@ func main() {
 	}
 
 	w.SetContent(x)
+}
+
+func main() {
+	a := app.New()
+	w := a.NewWindow("Disk Usage")
+	w.CenterOnScreen()
+
+	w.Resize(fyne.NewSize(585, 444))
+	cons_window(w)
 
 	if desk, ok := a.(desktop.App); ok {
 		m := fyne.NewMenu("MyApp",
@@ -66,10 +70,15 @@ func main() {
 		desk.SetSystemTrayMenu(m)
 	}
 
-	// Esc := &desktop.CustomShortcut{KeyName: fyne.KeyEscape}
-	// w.Canvas().AddShortcut(Esc, func(shortcut fyne.Shortcut) {
-	// 	w.Hide()
-	// })
+	CtrlR := &desktop.CustomShortcut{KeyName: fyne.KeyR, Modifier: fyne.KeyModifierControl}
+	w.Canvas().AddShortcut(CtrlR, func(shortcut fyne.Shortcut) {
+		cons_window(w)
+	})
+
+	CtrlQ := &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
+	w.Canvas().AddShortcut(CtrlQ, func(shortcut fyne.Shortcut) {
+		a.Quit()
+	})
 
 	w.Canvas().SetOnTypedKey(func(key *fyne.KeyEvent) {
 		if key.Name == fyne.KeyEscape {
