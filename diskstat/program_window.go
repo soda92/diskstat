@@ -85,6 +85,44 @@ func cons_window(w fyne.Window) {
 	w.SetContent(x)
 }
 
+func create_bindings(w fyne.Window, a fyne.App, tray bool) {
+	CtrlR := &desktop.CustomShortcut{KeyName: fyne.KeyR, Modifier: fyne.KeyModifierControl}
+	w.Canvas().AddShortcut(CtrlR, func(shortcut fyne.Shortcut) {
+		cons_window(w)
+	})
+
+	CtrlQ := &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
+	w.Canvas().AddShortcut(CtrlQ, func(shortcut fyne.Shortcut) {
+		a.Quit()
+	})
+
+	w.Canvas().SetOnTypedKey(func(key *fyne.KeyEvent) {
+		if key.Name == fyne.KeyEscape {
+			if tray {
+				w.Hide()
+			} else {
+				a.Quit()
+			}
+		}
+	})
+}
+
+func create_server(w fyne.Window, a fyne.App) {
+	server := &http.Server{
+		Addr: "localhost:12347",
+	}
+
+	http.HandleFunc("/show", func(rw http.ResponseWriter, r *http.Request) {
+		w.Show()
+	})
+
+	http.HandleFunc("/quit", func(rw http.ResponseWriter, r *http.Request) {
+		a.Quit()
+	})
+
+	go server.ListenAndServe()
+}
+
 func main() {
 	no_tray := flag.Bool("i", false, "whether run in background")
 	flag.Parse()
@@ -110,35 +148,8 @@ func main() {
 		})
 	}
 
-	CtrlR := &desktop.CustomShortcut{KeyName: fyne.KeyR, Modifier: fyne.KeyModifierControl}
-	w.Canvas().AddShortcut(CtrlR, func(shortcut fyne.Shortcut) {
-		cons_window(w)
-	})
-
-	CtrlQ := &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
-	w.Canvas().AddShortcut(CtrlQ, func(shortcut fyne.Shortcut) {
-		a.Quit()
-	})
-
-	w.Canvas().SetOnTypedKey(func(key *fyne.KeyEvent) {
-		if key.Name == fyne.KeyEscape {
-			w.Hide()
-		}
-	})
-
-	server := &http.Server{
-		Addr: "localhost:12347",
-	}
-
-	http.HandleFunc("/show", func(rw http.ResponseWriter, r *http.Request) {
-		w.Show()
-	})
-
-	http.HandleFunc("/quit", func(rw http.ResponseWriter, r *http.Request) {
-		a.Quit()
-	})
-
-	go server.ListenAndServe()
+	create_bindings(w, a, tray)
+	create_server(w, a)
 
 	w.ShowAndRun()
 }
