@@ -15,6 +15,12 @@ def CD(d: str):
     os.chdir(old)
 
 
+def build():
+    with CD("diskstat"):
+        subprocess.run("go build diskstat-api.go".split(), check=True)
+        subprocess.run("pyside6-rcc res.qrc -o res.py".split(), check=True)
+
+
 class CustomBuilder(BuildHookInterface):
     def initialize(
         self,
@@ -23,7 +29,8 @@ class CustomBuilder(BuildHookInterface):
     ) -> None:
         if self.target_name == "sdist":
             return
+        build()
 
-        with CD("diskstat"):
-            subprocess.run("go build diskstat-api.go".split(), check=True)
-            subprocess.run("pyside6-rcc res.qrc -o res.py".split(), check=True)
+
+if __name__ == "__main__":
+    build()

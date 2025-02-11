@@ -57,4 +57,4 @@ Use 'Win+Alt+O' for shortcut key.
 
 ## Note on running from source
 
-need to install go; then run `build.ps1`.
+need to install [golang](https://go.dev/); then run `hatch_build.py`.
