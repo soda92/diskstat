@@ -96,6 +96,7 @@ func cons_window(w fyne.Window) {
 	}
 
 	w.SetContent(x)
+	w.CenterOnScreen()
 }
 
 func create_bindings(w fyne.Window, a fyne.App, tray bool) {
@@ -142,9 +143,8 @@ func main() {
 	tray := !*no_tray
 	a := app.New()
 	w := a.NewWindow("Disk Usage")
-	w.CenterOnScreen()
 
-	w.Resize(fyne.NewSize(585, 444))
+	w.Resize(fyne.NewSize(585, 0))
 	cons_window(w)
 
 	if tray {
