@@ -21,6 +21,7 @@ def build():
         subprocess.run("go build diskstat-api.go".split(), check=True)
         shutil.copy("diskstat-api.exe", "../diskstat/")
     with CD("diskstat"):
+        subprocess.run("fyne package".split(), check=True)
         subprocess.run("pyside6-rcc res.qrc -o res.py".split(), check=True)
 
 
