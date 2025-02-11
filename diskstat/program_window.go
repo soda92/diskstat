@@ -2,13 +2,16 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
+
 	"github.com/ricochet2200/go-disk-usage/du"
-	"os"
 )
 
 var KB = float64(1024)
@@ -53,5 +56,30 @@ func main() {
 	}
 
 	w.SetContent(x)
+
+	if desk, ok := a.(desktop.App); ok {
+		m := fyne.NewMenu("MyApp",
+			fyne.NewMenuItem("Show", func() {
+				// log.Println("Tapped show")
+				w.Show()
+			}))
+		desk.SetSystemTrayMenu(m)
+	}
+
+	// Esc := &desktop.CustomShortcut{KeyName: fyne.KeyEscape}
+	// w.Canvas().AddShortcut(Esc, func(shortcut fyne.Shortcut) {
+	// 	w.Hide()
+	// })
+
+	w.Canvas().SetOnTypedKey(func(key *fyne.KeyEvent) {
+		if key.Name == fyne.KeyEscape {
+			w.Hide()
+		}
+	})
+
+	w.SetCloseIntercept(func() {
+		w.Hide()
+	})
+
 	w.ShowAndRun()
 }
