@@ -78,7 +78,20 @@ func cons_window(w fyne.Window) {
 
 	disks := get_disks()
 	for _, v := range disks {
-		x.Add(widget.NewLabel(get_disk_name(v)))
+		name := get_disk_name(v)
+		if name == "Google Drive (G:)" {
+			continue
+		}
+		x.Add(widget.NewLabel(name))
+		progress := widget.NewProgressBar()
+		usage := du.NewDiskUsage(v)
+		progress.Value = float64(usage.Used())
+		progress.Max = float64(usage.Size())
+		if float64(usage.Used())/float64(usage.Size()) > 0.9 {
+			// progress.Theme()
+			// TODO add red color
+		}
+		x.Add(progress)
 		x.Add(widget.NewLabel(get_usage(v)))
 	}
 
