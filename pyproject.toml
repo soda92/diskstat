@@ -1,6 +1,6 @@
 [project]
 name = "diskstat"
-version = "2025.2.11.0"
+version = "2025.2.11.1"
 description = "Visualize your disk free space without Windows Explorer"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -34,7 +34,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.sdist]
 ignore-vcs = true
-packages = ["diskstat"]
+packages = ["diskstat", "diskstat_api"]
 include = ["*.ahk"]
 exclude = ["__pycache__", "*.pyc", "*.exe"]
 
