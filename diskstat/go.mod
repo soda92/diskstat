@@ -5,6 +5,7 @@ go 1.23.5
 require (
 	fyne.io/fyne/v2 v2.5.4
 	github.com/ricochet2200/go-disk-usage/du v0.0.0-20210707232629-ac9918953285
+	golang.org/x/sys v0.28.0
 )
 
 require (
@@ -30,12 +31,11 @@ require (
 	github.com/rymdport/portal v0.3.0 // indirect
 	github.com/srwiley/oksvg v0.0.0-20221011165216-be6e8873101c // indirect
 	github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
+	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
 	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/mobile v0.0.0-20231127183840-76ac6878050a // indirect
 	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

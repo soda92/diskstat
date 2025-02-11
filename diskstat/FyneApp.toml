@@ -1,7 +1,7 @@
 Website = "https://example.com"
 
 [Details]
-  Icon = "program.ico"
+  Icon = "Icon.png"
   Name = "diskstat"
   ID = "com.example.app"
   Version = "1.0.0"
