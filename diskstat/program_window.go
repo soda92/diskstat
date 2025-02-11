@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"net/http"
 	"os"
 
 	"fyne.io/fyne/v2"
@@ -89,6 +91,21 @@ func main() {
 	w.SetCloseIntercept(func() {
 		w.Hide()
 	})
+
+	server := &http.Server{
+		Addr: "localhost:12347",
+	}
+
+	http.HandleFunc("/show", func(rw http.ResponseWriter, r *http.Request) {
+		w.Show()
+	})
+
+	http.HandleFunc("/quit", func(rw http.ResponseWriter, r *http.Request) {
+		server.Shutdown(context.Background())
+		a.Quit()
+	})
+
+	go server.ListenAndServe()
 
 	w.ShowAndRun()
 }

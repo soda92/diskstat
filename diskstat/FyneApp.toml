@@ -5,4 +5,3 @@ Website = "https://example.com"
   Name = "diskstat"
   ID = "com.example.app"
   Version = "1.0.0"
-  Build = 4

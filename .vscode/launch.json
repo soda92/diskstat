@@ -23,6 +23,13 @@
             "env": {
                 "PYTHONPATH": "."
             }
+        },
+        {
+            "name": "go server",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/diskstat"
         }
     ]
 }
