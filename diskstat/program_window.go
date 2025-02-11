@@ -7,8 +7,12 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
+	"github.com/ricochet2200/go-disk-usage/du"
 	"os"
 )
+
+var KB = float64(1024)
+var GB = KB * KB * KB
 
 func pathExists(path string) bool {
 	_, err := os.Stat(path)
@@ -17,7 +21,7 @@ func pathExists(path string) bool {
 
 func get_disks() []string {
 	x := []string{}
-	for char := 'a'; char <= 'z'; char++ {
+	for char := 'A'; char <= 'Z'; char++ {
 		path := fmt.Sprintf("%c%s", char, ":\\")
 		if pathExists(path) {
 			x = append(x, path)
@@ -26,9 +30,18 @@ func get_disks() []string {
 	return x
 }
 
+func get_usage(d string) string {
+	usage := du.NewDiskUsage(d)
+
+	str := fmt.Sprintf("%.1fGB free of %.0fGB",
+		float64(usage.Free())/GB, float64(usage.Size())/GB)
+	return str
+}
+
 func main() {
 	a := app.New()
 	w := a.NewWindow("Disk Usage")
+	w.CenterOnScreen()
 
 	w.Resize(fyne.NewSize(585, 444))
 	x := container.New(layout.NewVBoxLayout())
@@ -36,6 +49,7 @@ func main() {
 	disks := get_disks()
 	for _, v := range disks {
 		x.Add(widget.NewLabel(v))
+		x.Add(widget.NewLabel(get_usage(v)))
 	}
 
 	w.SetContent(x)
