@@ -3,9 +3,9 @@
 
 TraySetIcon "{resources}\program.ico"
 
-SHOW_COMMAND := "{resources}\diskstat-api.exe -show"
-SERVER := "diskstat-server.exe --hidden"
-STOP_COMMAND := "{resources}\diskstat-api.exe -stop"
+SHOW_COMMAND := "{resources}\diskstat-api.exe -show -port 12347"
+SERVER := "diskstat-server.exe"
+STOP_COMMAND := "{resources}\diskstat-api.exe -stop -port 12347"
 
 ; shortcut behavior
 #!O::

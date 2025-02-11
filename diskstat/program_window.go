@@ -139,6 +139,7 @@ func create_server(w fyne.Window, a fyne.App) {
 
 func main() {
 	no_tray := flag.Bool("i", false, "whether run in background")
+	hide := flag.Bool("hide", false, "hide window on launch")
 	flag.Parse()
 	tray := !*no_tray
 	a := app.New()
@@ -164,5 +165,8 @@ func main() {
 	create_bindings(w, a, tray)
 	create_server(w, a)
 
-	w.ShowAndRun()
+	if !*hide {
+		w.Show()
+	}
+	a.Run()
 }
