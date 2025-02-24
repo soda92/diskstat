@@ -1,18 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"fyne.io/fyne/v2"
 )
 
-func create_server(w fyne.Window, a fyne.App) {
+func CreateServer(mw MyWindow, a fyne.App, port int) {
 	server := &http.Server{
-		Addr: "localhost:12347",
+		Addr: fmt.Sprintf("localhost:%d", port),
 	}
 
 	http.HandleFunc("/show", func(rw http.ResponseWriter, r *http.Request) {
-		w.Show()
+		mw.w.Show()
+		mw.RefreshWindow()
 	})
 
 	http.HandleFunc("/quit", func(rw http.ResponseWriter, r *http.Request) {

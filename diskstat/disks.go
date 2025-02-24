@@ -5,8 +5,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/ricochet2200/go-disk-usage/du"
-
 	"golang.org/x/sys/windows"
 )
 
@@ -27,14 +25,6 @@ func get_disks() []string {
 		}
 	}
 	return x
-}
-
-func get_usage(d string) string {
-	usage := du.NewDiskUsage(d)
-
-	str := fmt.Sprintf("%.1fGB free of %.0fGB",
-		float64(usage.Free())/GB, float64(usage.Size())/GB)
-	return str
 }
 
 func get_disk_name(v string) string {

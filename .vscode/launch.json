@@ -30,6 +30,18 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}/diskstat"
+        },
+        {
+            "name": "Diskstat",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/diskstat",
+            "args": [
+                "-cmd",
+                "-port",
+                "8888"
+            ]
         }
     ]
 }

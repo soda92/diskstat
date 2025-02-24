@@ -3,21 +3,31 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+
+	"flag"
 )
 
 func main() {
+	hide := flag.Bool("hide", false, "hide window")
+	cmd := flag.Bool("cmd", false, "run on foreground - close on window close")
+	port := flag.Int("port", 12347, "server port")
+	flag.Parse()
+
 	a := app.New()
 	w := a.NewWindow("Disk Usage")
-
 	w.Resize(fyne.NewSize(585, 0))
-	cons_window(w)
 
-	create_bindings(w, a, true)
-	create_server(w, a)
+	my_window := InitWindow(w)
 
-	w.SetCloseIntercept(func() {
-		w.Hide()
-	})
+	CreateShortcuts(my_window, a, !*cmd)
+	CreateServer(my_window, a, *port)
+
+	if !*cmd {
+		w.SetCloseIntercept(func() { w.Hide() })
+	}
+	if !*hide {
+		w.Show()
+	}
 	w.CenterOnScreen()
 	a.Run()
 }
