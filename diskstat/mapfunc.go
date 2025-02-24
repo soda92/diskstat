@@ -44,18 +44,30 @@ func DiskPaths(arr []disk_usage) []string {
 	return ret
 }
 
+func ArrayEqual[T Val](arr1, arr2 []T) bool {
+	if len(arr1) != len(arr2) {
+		return false
+	}
+	for i, v := range arr1 {
+		if arr2[i] != v {
+			return false
+		}
+	}
+	return true
+}
+
 func FindIndex(arr []string, elem string) int {
 	if len(arr) == 0 {
 		return 0
 	}
-	if elem > arr[0] {
+	if elem < arr[0] {
 		return 0
 	}
 	for i, v := range arr {
 		if elem > v {
 			continue
 		} else {
-			return i - 1
+			return i
 		}
 	}
 	return len(arr)
