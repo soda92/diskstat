@@ -17,11 +17,8 @@ def CD(d: str):
 
 
 def build():
-    with CD("diskstat_api"):
-        subprocess.run("go build diskstat-api.go".split(), check=True)
-        shutil.copy("diskstat-api.exe", "../diskstat/")
     with CD("diskstat"):
-        subprocess.run("fyne package".split(), check=True)
+        subprocess.run("make", shell=True, check=True)
 
 
 class CustomBuilder(BuildHookInterface):
@@ -30,7 +27,7 @@ class CustomBuilder(BuildHookInterface):
         version: str,  # noqa: ARG002
         build_data: dict[str, Any],
     ) -> None:
-        build_data['tag'] = 'py3-none-win_amd64'
+        build_data["tag"] = "py3-none-win_amd64"
         if self.target_name == "sdist":
             return
         build()

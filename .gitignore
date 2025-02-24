@@ -3,6 +3,8 @@ diskstat/res.py
 /diskstat_script
 
 /diskstat/*.exe
+/diskstat/*.exe~
+*.syso
 
 
 # Byte-compiled / optimized / DLL files
