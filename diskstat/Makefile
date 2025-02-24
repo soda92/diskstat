@@ -2,8 +2,8 @@ all: build build-api
 
 
 build:
-	go-winres make
-	go build .
+	fyne package
+	mv "Display Disk Usage Status.exe" diskstat.exe
 
 build-api:
 	cd ../diskstat_api && make
