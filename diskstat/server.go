@@ -7,13 +7,14 @@ import (
 	"fyne.io/fyne/v2"
 )
 
-func CreateServer(w fyne.Window, a fyne.App, port int) {
+func CreateServer(mw MyWindow, a fyne.App, port int) {
 	server := &http.Server{
 		Addr: fmt.Sprintf("localhost:%d", port),
 	}
 
 	http.HandleFunc("/show", func(rw http.ResponseWriter, r *http.Request) {
-		w.Show()
+		mw.w.Show()
+		mw.RefreshWindow()
 	})
 
 	http.HandleFunc("/quit", func(rw http.ResponseWriter, r *http.Request) {

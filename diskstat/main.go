@@ -20,7 +20,7 @@ func main() {
 	my_window := InitWindow(w)
 
 	CreateShortcuts(my_window, a, !*cmd)
-	CreateServer(w, a, *port)
+	CreateServer(my_window, a, *port)
 
 	if !*cmd {
 		w.SetCloseIntercept(func() { w.Hide() })
