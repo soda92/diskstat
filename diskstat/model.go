@@ -32,9 +32,39 @@ func AllDiskUsage() []disk_usage {
 		usage := du.NewDiskUsage(v)
 		d.used = float64(usage.Used()) / GB
 		d.total = float64(usage.Size()) / GB
+
+		d.is_new = false
+		d.is_removed = false
+		d.old_used = d.used
+
 		ret = append(ret, d)
 	}
 	return ret
+}
+
+func RefreshDiskUsage(old []disk_usage) []disk_usage {
+	new := AllDiskUsage()
+	disks := get_disks()
+
+	for _, d := range disks {
+		if IsDiskNew(old, d) {
+			index := DiskIndex(new, d)
+			new[index].is_new = true
+		}
+	}
+
+	for _, d := range DiskPaths(old) {
+		if IsDiskNew(new, d) {
+			index := DiskIndex(old, d)
+			val := old[index]
+			val.is_removed = true
+
+			index = FindIndex(DiskPaths(new), val.disk_path)
+			new = InsertOrdered(new, val, index)
+		}
+	}
+
+	return new
 }
 
 func (d *disk_usage) Label() string {
