@@ -16,7 +16,7 @@ func MapRightNew[K comparable, V Val](left, right map[K]V, key K) bool {
 	return !exists
 }
 
-func IsDiskNew(arr []disk_usage, disk string) bool {
+func DiskNotIn(arr []disk_usage, disk string) bool {
 	for _, v := range arr {
 		if v.disk_path == disk {
 			return false
@@ -40,6 +40,19 @@ func DiskPaths(arr []disk_usage) []string {
 	for _, v := range arr {
 		path := v.disk_path
 		ret = append(ret, path)
+	}
+	return ret
+}
+
+func CleanupUsage(usages []disk_usage) []disk_usage {
+	var ret []disk_usage
+	for _, v := range usages {
+		if v.is_removed {
+			continue
+		}
+		v.is_new = false
+		v.old_used = v.used
+		ret = append(ret, v)
 	}
 	return ret
 }

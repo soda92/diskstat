@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"fyne.io/fyne/v2/widget"
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/widget"
 
 	"github.com/ricochet2200/go-disk-usage/du"
 )
@@ -20,7 +20,7 @@ type disk_usage struct {
 }
 
 type MyWindow struct {
-	w fyne.Window
+	w      fyne.Window
 	usages []disk_usage
 }
 
@@ -31,7 +31,7 @@ func AllDiskUsage() []disk_usage {
 		var d disk_usage
 		d.disk_path = v
 		d.disk_name = get_disk_name(v)
-		if d.disk_name == "Google Drive" {
+		if d.disk_name == "Google Drive (G:)" {
 			continue
 		}
 
@@ -50,23 +50,30 @@ func AllDiskUsage() []disk_usage {
 
 func RefreshDiskUsage(old []disk_usage) []disk_usage {
 	new := AllDiskUsage()
-	disks := get_disks()
+	disks := DiskPaths(new)
 
 	for _, d := range disks {
-		if IsDiskNew(old, d) {
+		if DiskNotIn(old, d) {
 			index := DiskIndex(new, d)
 			new[index].is_new = true
 		}
 	}
 
 	for _, d := range DiskPaths(old) {
-		if IsDiskNew(new, d) {
+		if DiskNotIn(new, d) {
 			index := DiskIndex(old, d)
 			val := old[index]
 			val.is_removed = true
 
 			index = FindIndex(DiskPaths(new), val.disk_path)
 			new = InsertOrdered(new, val, index)
+		} else if DiskNotIn(old, d) {
+			index := DiskIndex(new, d)
+			new[index].is_new = true
+		} else {
+			index1 := DiskIndex(old, d)
+			index2 := DiskIndex(new, d)
+			new[index2].old_used = old[index1].used
 		}
 	}
 
@@ -76,6 +83,30 @@ func RefreshDiskUsage(old []disk_usage) []disk_usage {
 func (d *disk_usage) Label() string {
 	str := fmt.Sprintf("%.1fGB free of %.0fGB",
 		d.total-d.used, d.total)
+	if d.old_used != d.used {
+		diff := d.used - d.old_used
+		diffMB := diff * 1024
+		percent := diff / d.total * 100
+		sign := ""
+		if diff > 0 {
+			sign = "+"
+		}
+		if diffMB > 1 || diffMB < -1 {
+			if percent < 1 && percent > -1 {
+				str2 := fmt.Sprintf("(%s%.0fMB)", sign, diffMB)
+				str += str2
+			} else {
+				str2 := fmt.Sprintf("(%s%.1f%s/%.0fMB)", sign, percent, "%", diffMB)
+				str += str2
+			}
+		}
+	}
+	if d.is_new {
+		str += "(newly added)"
+	}
+	if d.is_removed {
+		str += "(removed)"
+	}
 	return str
 }
 
