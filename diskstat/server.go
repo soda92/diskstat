@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"fyne.io/fyne/v2"
 	"net/http"
+
+	"fyne.io/fyne/v2"
 )
 
-func create_server(w fyne.Window, a fyne.App, port int) {
+func CreateServer(w fyne.Window, a fyne.App, port int) {
 	server := &http.Server{
 		Addr: fmt.Sprintf("localhost:%d", port),
 	}

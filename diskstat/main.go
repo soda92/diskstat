@@ -16,10 +16,10 @@ func main() {
 	w := a.NewWindow("Disk Usage")
 
 	w.Resize(fyne.NewSize(585, 0))
-	cons_window(w)
+	InitWindow(w)
 
-	create_bindings(w, a, true)
-	create_server(w, a, *port)
+	CreateShortcuts(w, a, !*cmd)
+	CreateServer(w, a, *port)
 
 	if !*cmd {
 		w.SetCloseIntercept(func() { w.Hide() })

@@ -7,7 +7,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func cons_window(w fyne.Window) {
+func InitWindow(w fyne.Window) {
 	x := container.New(layout.NewVBoxLayout())
 
 	usages := AllDiskUsage()

@@ -5,10 +5,10 @@ import (
 	"fyne.io/fyne/v2/driver/desktop"
 )
 
-func create_bindings(w fyne.Window, a fyne.App, tray bool) {
+func CreateShortcuts(w fyne.Window, a fyne.App, tray bool) {
 	CtrlR := &desktop.CustomShortcut{KeyName: fyne.KeyR, Modifier: fyne.KeyModifierControl}
 	w.Canvas().AddShortcut(CtrlR, func(shortcut fyne.Shortcut) {
-		cons_window(w)
+		InitWindow(w)
 	})
 
 	CtrlQ := &desktop.CustomShortcut{KeyName: fyne.KeyQ, Modifier: fyne.KeyModifierControl}
