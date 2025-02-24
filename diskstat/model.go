@@ -25,6 +25,9 @@ func AllDiskUsage() []disk_usage {
 		var d disk_usage
 		d.disk_path = v
 		d.disk_name = get_disk_name(v)
+		if d.disk_name == "Google Drive" {
+			continue
+		}
 
 		usage := du.NewDiskUsage(v)
 		d.used = float64(usage.Used()) / GB

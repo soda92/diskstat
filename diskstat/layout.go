@@ -14,9 +14,6 @@ func InitWindow(w fyne.Window) {
 
 	for _, v := range usages {
 		name := v.disk_name
-		if name == "Google Drive (G:)" {
-			continue
-		}
 		x.Add(widget.NewLabel(name))
 		progress := v.PBar()
 		x.Add(progress)
