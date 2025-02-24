@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2"
 
 	"github.com/ricochet2200/go-disk-usage/du"
 )
@@ -16,6 +17,11 @@ type disk_usage struct {
 	old_used   float64
 	is_new     bool
 	is_removed bool
+}
+
+type MyWindow struct {
+	w fyne.Window
+	usages []disk_usage
 }
 
 func AllDiskUsage() []disk_usage {
