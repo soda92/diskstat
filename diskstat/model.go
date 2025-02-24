@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"fyne.io/fyne/v2/widget"
 
 	"github.com/ricochet2200/go-disk-usage/du"
@@ -33,13 +34,13 @@ func AllDiskUsage() []disk_usage {
 	return ret
 }
 
-func (d *disk_usage) getUsageStr() string {
+func (d *disk_usage) Label() string {
 	str := fmt.Sprintf("%.1fGB free of %.0fGB",
 		d.total-d.used, d.total)
 	return str
 }
 
-func (d *disk_usage) getUI() *widget.ProgressBar {
+func (d *disk_usage) PBar() *widget.ProgressBar {
 	progress := widget.NewProgressBar()
 	usage := du.NewDiskUsage(d.disk_path)
 	progress.Value = float64(usage.Used())
