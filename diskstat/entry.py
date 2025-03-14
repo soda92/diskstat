@@ -1,6 +1,6 @@
 "Program entry"
-from diskstat.gen import gen
-import diskstat.autostart as autostart
+from .gen import gen
+from . import autostart
 import argparse
 
 
