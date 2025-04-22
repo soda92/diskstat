@@ -5,7 +5,7 @@ go 1.23.5
 require (
 	fyne.io/fyne/v2 v2.5.4
 	github.com/ricochet2200/go-disk-usage/du v0.0.0-20210707232629-ac9918953285
-	golang.org/x/sys v0.30.0
+	golang.org/x/sys v0.31.0
 )
 
 require (
@@ -35,7 +35,7 @@ require (
 	github.com/yuin/goldmark v1.7.1 // indirect
 	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/mobile v0.0.0-20231127183840-76ac6878050a // indirect
-	golang.org/x/net v0.36.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
